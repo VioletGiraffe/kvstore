@@ -11,7 +11,7 @@ class WorkerThread : public QThread
 	Q_OBJECT
 
 public:
-	WorkerThread(int socketDescriptor, IKeyValueProvider* store);
+	WorkerThread(qintptr socketDescriptor, IKeyValueProvider* store);
 
 	void run() override;
 
@@ -30,10 +30,11 @@ protected:
 	void respondError(const QString& str);
 	void respondOk(const QString& strDetails = QString::null);
 	void respondValue(const QString& key, const QString& val, const QString& strDetails = QString());
+	void respondCount(int count);
 
 private:
 	QScopedPointer<QTcpSocket> _socket;
-	int _socketDescriptor{ -1 };
+	qintptr _socketDescriptor{ -1 };
 	QScopedPointer<QDataStream> _strm;
 	QMap<QString, QString> request;
 	QMap<QString, QString> response;

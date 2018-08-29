@@ -1,13 +1,16 @@
 CONFIG += console
-QT += network
-QT -= gui
+QT = core network
+
+win32-msvc*{
+	QMAKE_CXXFLAGS += /MP
+	QMAKE_CXXFLAGS_WARN_ON = /W4
+}
 
 HEADERS       = server.h \
 				workerthread.h \
 				../common/LocalKeyValueProvider.h \
 				../common/PersistentKeyValueStorage.h \
-    ../common/KeyValuePair.h \
-    ../common/KeyValuePairQString.h
+				utils.h
 
 SOURCES       = server.cpp \
 				workerthread.cpp \
